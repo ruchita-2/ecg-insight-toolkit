@@ -1,0 +1,35 @@
+[project]
+name = "ecg-beat-analysis-workbench"
+version = "0.1.0"
+description = "Research workbench for ECG beat analysis and reliability"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi>=0.115",
+  "numpy>=2.0",
+  "pandas>=2.2",
+  "pydantic>=2.7",
+  "scikit-learn>=1.5",
+  "scipy>=1.13",
+  "uvicorn>=0.30",
+  "wfdb>=4.1",
+]
+
+[project.optional-dependencies]
+ml = ["torch>=2.3"]
+
+[dependency-groups]
+dev = ["httpx>=0.27", "pytest>=8.0", "ruff>=0.6"]
+
+[project.scripts]
+ecg-workbench = "ecg_workbench.cli:main"
+
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ecg_workbench"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

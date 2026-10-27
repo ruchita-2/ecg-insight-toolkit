@@ -1,0 +1,21 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./data/mitdb/1.0.0:/app/data/mitdb/1.0.0:ro
+      - ./artifacts/runs:/app/artifacts/runs:ro
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    depends_on:
+      - api
+    ports:
+      - "8080:80"
+    restart: unless-stopped
